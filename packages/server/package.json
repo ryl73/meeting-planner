@@ -1,0 +1,25 @@
+{
+    "name": "server",
+    "version": "1.0.0",
+    "description": "",
+    "license": "ISC",
+    "private": true,
+    "scripts": {
+        "dev": "cross-env NODE_ENV=development nodemon src/index.ts",
+        "build": "tsc --p ./tsconfig.prod.json --outDir dist/server",
+        "lint": "eslint",
+        "format": "prettier --write .",
+        "test": "jest ."
+    },
+    "dependencies": {
+        "dotenv": "^16.4.7",
+        "express": "^5.1.0"
+    },
+    "devDependencies": {
+        "@types/express": "^5.0.5",
+        "eslint": "^9.39.1",
+        "nodemon": "^3.1.11",
+        "prettier": "^3.6.2",
+        "ts-jest": "^29.4.5"
+    }
+}
