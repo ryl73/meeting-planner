@@ -8,30 +8,19 @@ import {
     AllowNull,
     BeforeCreate,
     BeforeUpdate,
+    BelongsToMany,
 } from 'sequelize-typescript';
 import bcrypt from 'bcrypt';
+import Meeting from '../meeting/Meeting';
+import UserMeeting from '../joins/UserMeeting';
 
 export type UserRole = 'admin' | 'user';
-
-export type UserAttributes = {
-    id?: string; // optional because it’s auto-generated
-    email: string;
-    password: string;
-    phone: string;
-    firstName: string;
-    lastName: string;
-    avatar?: string;
-    role?: UserRole;
-};
 
 @Table({
     tableName: 'users',
     timestamps: false,
 })
-export default class User extends Model<
-    UserAttributes,
-    Omit<UserAttributes, 'id'>
-> {
+export default class User extends Model {
     @PrimaryKey
     @Default(DataType.UUIDV4)
     @Column(DataType.UUID)
@@ -63,6 +52,9 @@ export default class User extends Model<
     @Default('user')
     @Column(DataType.ENUM('admin', 'user'))
     role!: UserRole;
+
+    @BelongsToMany(() => Meeting, () => UserMeeting)
+    meetings!: Meeting[];
 
     async comparePassword(password: string) {
         return bcrypt.compare(password, this.password);

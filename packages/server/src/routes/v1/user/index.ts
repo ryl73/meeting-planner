@@ -4,4 +4,6 @@ import { authMiddleware } from '../../../middleware/auth';
 
 export const router = Router();
 
-router.get('/', authMiddleware, UserController.get);
+const userController = new UserController();
+
+router.get('/', authMiddleware, userController.get);

@@ -1,6 +1,10 @@
-import type { UserAttributes } from '../models/user/User';
+import User from '../models/user/User';
 import type { Request } from 'express';
 
-export type AuthRequest<Q, T, B> = Request<Q, T, B> & {
-    user?: UserAttributes;
+export type AuthRequest<Q = unknown, T = unknown, B = unknown> = Request<
+    Q,
+    T,
+    B
+> & {
+    user?: User;
 };
